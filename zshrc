@@ -122,17 +122,18 @@ source $ZSH/oh-my-zsh.sh
  alias nf='find ~/Desktop/ascii_art/ -type f | shuf -n 1 | xargs neofetch --source'
  
 # Folders
- alias desk='cd ~/Desktop'
-#alias i3c='vim ~/.config/i3/config'
+ alias dw='cd ~/Downloads'
+ alias dt='cd ~/Desktop'
  alias .c='cd ~/.config/'
  alias code='cd ~/Desktop/Code'
  alias lin='cd ~/Desktop/Linux'
  alias dgit='cd ~/Desktop/Code/git'
  alias tg='cd ~/Downloads/Telegram\ Desktop/'
+ alias main='cd ~/Desktop/Linux/Main/; ls'
+ alias dotf='cd ~/X/mydotfiles'
 
  alias alac='vim ~/.config/alacritty/alacritty.yml'
  alias e='emacs -nw'
- alias main='cd ~/Desktop/Linux/Main/; ls'
  alias vimrc='vim ~/.vimrc'
 #alias urxrc='vim ~/.Xresources; xrdb ~/.Xresources'
  alias x='cd ~/X'
@@ -164,7 +165,7 @@ source $ZSH/oh-my-zsh.sh
 LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'; export LS_COLORS
 
 # path additions
-PATH=$PATH:/home/abinlatheef/.cargo/bin:/home/abinlatheef/X/execs
+PATH=$PATH:/home/abinlatheef/.cargo/bin:/home/abinlatheef/X/execs:/home/abinlatheef/.local/bin
 
 # ZSH autosuggest hotkey : Ctrl+Space
  bindkey '^ ' autosuggest-accept
