@@ -5,115 +5,35 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# This tells zsh to save history to a file. Learned it the hard way :smiletear:
+HISTFILE=~/.zsh_history
+HISTSIZE=11000
+SAVEHIST=11000
+setopt APPEND_HISTORY
 
-# Path to your oh-my-zsh installation.
-export ZSH="/home/abinlatheef/.oh-my-zsh"
+# Prompt
+#PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-# ZSH_THEME=edvardm
+#Tab completion colors
+eval "$(dircolors)"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+#Tab Completion select highlight
+zstyle ':completion:*' menu select
+autoload -U compinit && compinit
+zmodload -i zsh/complist
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+RPROMPT=\$vcs_info_msg_0_
+zstyle ':vcs_info:git:*' formats '%F{240}(%b)%r%f'
+zstyle ':vcs_info:*' enable git
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	git
-	zsh-syntax-highlighting
-	zsh-autosuggestions
-	)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# For C^w to delete upto special charecters rather than to a whitespace
+autoload -U select-word-style
+select-word-style bash
 
 ######################### Abin Latheef ############################
 
@@ -131,6 +51,7 @@ source $ZSH/oh-my-zsh.sh
  alias tg='cd ~/Downloads/Telegram\ Desktop/'
  alias main='cd ~/Desktop/Linux/Main/; ls'
  alias dotf='cd ~/X/mydotfiles'
+ alias s6='cd /run/media/abinlatheef/X/College/Academic/S6'
 
  alias alac='vim ~/.config/alacritty/alacritty.yml'
  alias e='emacs -nw'
@@ -160,39 +81,23 @@ source $ZSH/oh-my-zsh.sh
  alias wallf='~/X/scripts/styli.sh/styli_bsp.sh' #f for feh
  alias fswap='~/X/scripts/file_swap.sh'
 
-# typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-
+# For LS
 LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'; export LS_COLORS
+alias ls='exa'
+alias la='exa -lah'
 
 # path additions
 PATH=$PATH:/home/abinlatheef/.cargo/bin:/home/abinlatheef/X/execs:/home/abinlatheef/.local/bin
 
 # ZSH autosuggest hotkey : Ctrl+Space
- bindkey '^ ' autosuggest-accept
+# bindkey '^ ' autosuggest-accept
 
-eval $(thefuck --alias)
+            ### ZSH Plugins ###
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+#source /usr/share/zsh/plugins/theme-minimal/minimal.zsh #prompt
+#source /usr/share/zsh/plugins/common/common.zsh-theme
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
-# For the theme.sh(AUR) to work without adding an entry here
-
-#if command -v theme.sh > /dev/null; then
-#	[ -e ~/.theme_history ] && theme.sh "$(theme.sh -l|tail -n1)"
-#
-#	# Optional
-#
-#	# Bind C-o to the last theme.
-#	last_theme() {
-#		theme.sh "$(theme.sh -l|tail -n2|head -n1)"
-#	}
-#
-#	zle -N last_theme
-#	bindkey '^O' last_theme
-#
-#	alias th='theme.sh -i'
-#
-#	# Interactively load a light theme
-#	alias thl='theme.sh --light -i'
-#
-#	# Interactively load a dark theme
-#	alias thd='theme.sh --dark -i'
-#fi
-
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
