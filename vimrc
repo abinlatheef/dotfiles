@@ -107,4 +107,4 @@ if has("autocmd")
 endif
 
 "" set color scheme as of terminal
-set termguicolors
+" set termguicolors
